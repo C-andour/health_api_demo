@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itrihua.health_api_demo.mapper.SessionMapper">
+    <!--创建会话,主键回显-->
+    <insert id="createSession" parameterType="com.itrihua.health_api_demo.model.Session" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO session (openId, created_at, name) VALUES (#{openId},#{createdAt},#{name})
+    </insert>
+
+    <!--获取会话记录-->
+    <select id="getSession" resultType="com.itrihua.health_api_demo.model.SessionVO">
+        SELECT session.id,
+               session.name,
+               session.created_at
+        FROM session
+        WHERE openId = #{openId}
+        ORDER BY session.created_at DESC
+    </select>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itrihua.health_api_demo.mapper.MessagesMapper">
+    <!--插入数据-->
+    <insert id="addMessage" parameterType="com.itrihua.health_api_demo.model.Messages" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO messages
+            (session_id, sender, message, created_at, isMe)
+        VALUES
+            (#{sessionId},#{sender},#{message},#{createdAt},#{isMe})
+    </insert>
+
+    <!--获取聊天记录-->
+    <select id="getMessage" resultType="com.itrihua.health_api_demo.model.MessagesVO">
+        SELECT messages.id,
+               messages.sender,
+               messages.isMe,
+               messages.message,
+               messages.created_at
+        FROM messages
+        WHERE session_id = #{session_id}
+        ORDER BY messages.created_at ASC
+    </select>
+</mapper>
